@@ -4,7 +4,7 @@ import { useEffect } from "react";
 /** @name threejs学习 */
 const ThreeDemo = () => {
   useEffect(() => {
-    const sdk = new TEngine(document.querySelector(".three-canvas"));
+    new TEngine(document.querySelector(".three-canvas"));
   });
   return (
     <div
