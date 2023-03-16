@@ -7,6 +7,7 @@ import {
   MeshBasicMaterial,
   MeshStandardMaterial,
   MOUSE,
+  Object3D,
   PerspectiveCamera,
   Scene,
   Vector3,
@@ -16,6 +17,9 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 
 export class TEngine {
+  /** @name 当前实例 */
+  private instance: null;
+
   /** @name 挂载容器 */
   private dom: HTMLElement;
 
@@ -46,15 +50,6 @@ export class TEngine {
     this.dom.appendChild(this.renderer.domElement);
     this.renderer.setSize(dom.offsetWidth, dom.offsetHeight, true);
 
-    // 新增一个立方体
-    const mesh = new Mesh(
-      new BoxGeometry(1, 1, 1),
-      new MeshStandardMaterial({
-        // 设置材质颜色
-        color: 0xffff00,
-      })
-    );
-
     // 添加环境光
     const ambientLight = new AmbientLight("rgb(255,255,255)", 1);
     this.scene.add(ambientLight);
@@ -77,13 +72,6 @@ export class TEngine {
 
     this.scene.add(gridHelper);
     this.scene.add(axesHelper);
-    this.scene.add(mesh);
-
-    // this.renderer.setClearColor("#fff");
-    // this.renderer.clearColor();
-
-    // this.renderer.render(this.scene, this.camera);
-
     this.dom.appendChild(statsDom);
 
     const renderFunc = () => {
@@ -95,6 +83,17 @@ export class TEngine {
     this.addOrbitControl();
     renderFunc();
   }
+
+  /** @name 初始化 */
+  init = () => {
+    if (this.instance) return this.instance;
+  };
+
+  /** @name 批量添加物体 */
+  addObjects = (...objects: Object3D[]) => {
+    objects.forEach((obj) => this.scene.add(obj));
+  };
+
   /** @name 添加轨道控制器 */
   addOrbitControl = () => {
     const control = new OrbitControls(this.camera, this.renderer.domElement);

@@ -1,10 +1,11 @@
-import TEngine from "@three/engine";
+import { basicObjectLists } from "@three/engine";
 import { useEffect } from "react";
+import { getSdkInstance } from "./utils";
 
 /** @name threejs学习 */
 const ThreeDemo = () => {
   useEffect(() => {
-    new TEngine(document.querySelector(".three-canvas"));
+    getSdkInstance().addObjects(...basicObjectLists);
   });
   return (
     <div
