@@ -71,6 +71,14 @@ export class TEngine {
     // this.renderer.setClearColor("#fff");
     // this.renderer.clearColor();
 
-    this.renderer.render(this.scene, this.camera);
+    // this.renderer.render(this.scene, this.camera);
+
+    const renderFunc = () => {
+      mesh.position.x += 0.01;
+      this.renderer.render(this.scene, this.camera);
+      requestAnimationFrame(renderFunc);
+    };
+
+    renderFunc();
   }
 }
