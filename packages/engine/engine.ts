@@ -6,12 +6,13 @@ import {
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
+  MOUSE,
   PerspectiveCamera,
   Scene,
   Vector3,
   WebGLRenderer,
 } from "three";
-
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 
 export class TEngine {
@@ -86,12 +87,25 @@ export class TEngine {
     this.dom.appendChild(statsDom);
 
     const renderFunc = () => {
-      mesh.position.x += 0.01;
+      // mesh.position.x += 0.01;
       stats.update();
       this.renderer.render(this.scene, this.camera);
       requestAnimationFrame(renderFunc);
     };
-
+    this.addOrbitControl();
     renderFunc();
   }
+  /** @name 添加轨道控制器 */
+  addOrbitControl = () => {
+    const control = new OrbitControls(this.camera, this.renderer.domElement);
+    // 添加拖动惯性
+    // control.enableDamping = true;
+    // 设置鼠标左键，中键，右键
+    // control.mouseButtons = {
+    //   // 将左键干掉
+    //   LEFT: null as unknown as MOUSE,
+    //   MIDDLE: MOUSE.DOLLY,
+    //   RIGHT: MOUSE.ROTATE,
+    // };
+  };
 }
