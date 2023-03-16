@@ -11,6 +11,9 @@ import {
   Vector3,
   WebGLRenderer,
 } from "three";
+
+import Stats from "three/examples/jsm/libs/stats.module";
+
 export class TEngine {
   /** @name 挂载容器 */
   private dom: HTMLElement;
@@ -64,6 +67,13 @@ export class TEngine {
       "rgb(255,2550,0)"
     );
 
+    // 添加性能监控器
+    const stats = Stats();
+    const statsDom = stats.domElement;
+    statsDom.style.top = "5px";
+    statsDom.style.right = "5px";
+    statsDom.style.left = "unset";
+
     this.scene.add(gridHelper);
     this.scene.add(axesHelper);
     this.scene.add(mesh);
@@ -73,8 +83,11 @@ export class TEngine {
 
     // this.renderer.render(this.scene, this.camera);
 
+    this.dom.appendChild(statsDom);
+
     const renderFunc = () => {
       mesh.position.x += 0.01;
+      stats.update();
       this.renderer.render(this.scene, this.camera);
       requestAnimationFrame(renderFunc);
     };
