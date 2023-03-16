@@ -1,6 +1,8 @@
 import {
   AmbientLight,
+  AxesHelper,
   BoxGeometry,
+  GridHelper,
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
@@ -50,9 +52,20 @@ export class TEngine {
     );
 
     // 添加环境光
-    const ambientLight = new AmbientLight("rgb(255,255,255)", 10);
+    const ambientLight = new AmbientLight("rgb(255,255,255)", 1);
     this.scene.add(ambientLight);
 
+    // 添加场景辅助
+    const axesHelper: AxesHelper = new AxesHelper(5);
+    const gridHelper: GridHelper = new GridHelper(
+      30,
+      15,
+      "rgb(255,255,0)",
+      "rgb(255,2550,0)"
+    );
+
+    this.scene.add(gridHelper);
+    this.scene.add(axesHelper);
     this.scene.add(mesh);
 
     // this.renderer.setClearColor("#fff");
