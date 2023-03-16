@@ -1,4 +1,5 @@
 import {
+  AmbientLight,
   BoxGeometry,
   Mesh,
   MeshBasicMaterial,
@@ -43,13 +44,19 @@ export class TEngine {
     const mesh = new Mesh(
       new BoxGeometry(1, 1, 1),
       new MeshStandardMaterial({
+        // 设置材质颜色
         color: 0xffff00,
       })
     );
+
+    // 添加环境光
+    const ambientLight = new AmbientLight("rgb(255,255,255)", 10);
+    this.scene.add(ambientLight);
+
     this.scene.add(mesh);
 
-    this.renderer.setClearColor("#fff");
-    this.renderer.clearColor();
+    // this.renderer.setClearColor("#fff");
+    // this.renderer.clearColor();
 
     this.renderer.render(this.scene, this.camera);
   }
