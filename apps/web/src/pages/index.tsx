@@ -1,4 +1,4 @@
-import { basicObjectLists } from "@three/engine";
+import { basicObjectLists, TCanvasTexturedEditor } from "@three/engine";
 import { useEffect } from "react";
 import { getSdkInstance } from "./utils";
 
@@ -6,7 +6,20 @@ import { getSdkInstance } from "./utils";
 const ThreeDemo = () => {
   useEffect(() => {
     getSdkInstance().addObjects(...basicObjectLists);
-  });
+    const testCanvas = new TCanvasTexturedEditor(200, 200);
+    testCanvas
+      .draw((ctx) => {
+        ctx.beginPath();
+        // 画一个矩形路径
+        ctx.rect(10, 10, 20, 20);
+        // 设置笔的描边颜色
+        ctx.strokeStyle = "red";
+        // 通知笔进行描边
+        ctx.stroke();
+        ctx.closePath();
+      })
+      .preview();
+  }, []);
   return (
     <div
       className="three-canvas"
